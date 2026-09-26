@@ -14,9 +14,11 @@ function App() {
         <div className='total'></div> Белки
         <div className='total'></div> Жиры
         <div className='total'></div> Углеводы
+
       <main className='meals'></main>
         <h2>Приёмы пищи</h2>
         <div className='empty'></div>
+        
       <footer className='add'>Добавить продукт</footer>
       
     </div>
