@@ -3,24 +3,38 @@ import './App.css'
 function App() {
   return (
     <div className="app">
-        <header className="header"></header>
+      <header className="header">
         <h1>КБЖУ-трекер</h1>
-        <p className='date'></p> 25 сентября
-      
-      <section className='totals'></section>
-        <div className='total'></div>
-          <span className='total-value'></span> 0
-          <span className='total-label'></span> Ккал
-        <div className='total'></div> Белки
-        <div className='total'></div> Жиры
-        <div className='total'></div> Углеводы
+        <p className='date'>26 сентября</p>
+      </header>
 
-      <main className='meals'></main>
+      <section className='totals'>
+        <div className='total'>
+          <span className='total-value'>0 </span>
+          <span className='total-label'>Ккал</span>
+        </div>
+        <div className='total'>
+          <span className='total-value'>0 </span>
+          <span className='total-label'>Белки</span>
+        </div>
+        <div className='total'>
+          <span className='total-value'>0 </span>
+          <span className='total-label'>Жиры</span>
+        </div>
+        <div className='total'>
+          <span className='total-value'>0 </span>
+          <span className='total-label'>Углеводы</span>
+        </div>
+      </section>
+
+      <main className='meals'>
         <h2>Приёмы пищи</h2>
         <div className='empty'></div>
-        
-      <footer className='add'>Добавить продукт</footer>
-      
+      </main>
+
+      <footer className='add'>
+        <button className="add">Добавить продукт</button>.
+      </footer>
     </div>
   )
 }
