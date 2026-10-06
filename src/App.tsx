@@ -10,30 +10,30 @@ function App() {
 
       <section className='totals'>
         <div className='total'>
-          <span className='total-value'>0 </span>
+          <span className='total-value'>0</span>
           <span className='total-label'>Ккал</span>
         </div>
         <div className='total'>
-          <span className='total-value'>0 </span>
+          <span className='total-value'>0</span>
           <span className='total-label'>Белки</span>
         </div>
         <div className='total'>
-          <span className='total-value'>0 </span>
+          <span className='total-value'>0</span>
           <span className='total-label'>Жиры</span>
         </div>
         <div className='total'>
-          <span className='total-value'>0 </span>
+          <span className='total-value'>0</span>
           <span className='total-label'>Углеводы</span>
         </div>
       </section>
 
       <main className='meals'>
         <h2>Приёмы пищи</h2>
-        <div className='empty'></div>
+        <div className='empty'>Тут пока пусто</div>
       </main>
 
-      <footer className='add'>
-        <button className="add">Добавить продукт</button>.
+      <footer>
+        <button className="add">Добавить продукт</button>
       </footer>
     </div>
   )
