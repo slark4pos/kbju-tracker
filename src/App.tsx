@@ -1,4 +1,13 @@
+
 import './App.css'
+
+// useState на будущее когда будем уже полноценно влиять на value
+const kbju = ([
+  {id: 'kcal', name: 'Калории', value: 0},
+  {id: 'protein', name: 'Белок', value: 0},
+  {id: 'fat', name: 'Жиры', value: 0},
+  {id: 'carbs', name: 'Углеводы', value: 0}
+])
 
 function App() {
   return (
@@ -9,22 +18,12 @@ function App() {
       </header>
 
       <section className='totals'>
-        <div className='total'>
-          <span className='total-value'>0</span>
-          <span className='total-label'>Ккал</span>
+        {kbju.map((item) => (
+          <div className='total' key={item.id}>
+          <span className='total-value'>{item.value}</span>
+          <span className='total-label'>{item.name}</span>
         </div>
-        <div className='total'>
-          <span className='total-value'>0</span>
-          <span className='total-label'>Белки</span>
-        </div>
-        <div className='total'>
-          <span className='total-value'>0</span>
-          <span className='total-label'>Жиры</span>
-        </div>
-        <div className='total'>
-          <span className='total-value'>0</span>
-          <span className='total-label'>Углеводы</span>
-        </div>
+        ))}
       </section>
 
       <main className='meals'>
