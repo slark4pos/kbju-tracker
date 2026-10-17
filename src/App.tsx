@@ -1,13 +1,12 @@
-
 import './App.css'
+import { products } from './data/products'
 
-// useState на будущее когда будем уже полноценно влиять на value
-const kbju = ([
-  {id: 'kcal', name: 'Калории', value: 0},
-  {id: 'protein', name: 'Белок', value: 0},
-  {id: 'fat', name: 'Жиры', value: 0},
-  {id: 'carbs', name: 'Углеводы', value: 0}
-])
+const kbju = [
+  { id: 'kcal', name: 'Калории', value: 0 },
+  { id: 'protein', name: 'Белок', value: 0 },
+  { id: 'fat', name: 'Жиры', value: 0 },
+  { id: 'carbs', name: 'Углеводы', value: 0 }
+]
 
 function App() {
   return (
@@ -20,15 +19,22 @@ function App() {
       <section className='totals'>
         {kbju.map((item) => (
           <div className='total' key={item.id}>
-          <span className='total-value'>{item.value}</span>
-          <span className='total-label'>{item.name}</span>
-        </div>
+            <span className='total-value'>{item.value}</span>
+            <span className='total-label'>{item.name}</span>
+          </div>
         ))}
       </section>
 
       <main className='meals'>
         <h2>Приёмы пищи</h2>
-        <div className='empty'>Тут пока пусто</div>
+        <ul className='products'>
+          {products.map((food) => (
+            <li className='food' key={food.id}>
+              {food.name}
+              {food.kcal}
+            </li>
+          ))}
+        </ul>
       </main>
 
       <footer>
