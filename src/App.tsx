@@ -28,10 +28,10 @@ function App() {
       <main className='meals'>
         <h2>Приёмы пищи</h2>
         <ul className='products'>
-          {products.map((food) => (
-            <li className='food' key={food.id}>
-              {food.name}
-              {food.kcal}
+          {products.map((product) => (
+            <li className='product' key={product.id}>
+              <span>{product.name}</span>
+              <span>{product.kcal} ккал</span>
             </li>
           ))}
         </ul>

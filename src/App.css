@@ -53,3 +53,11 @@
  display: flex;
  gap: 8px;
 }
+
+.product {
+ display: flex;
+ justify-content: space-between;
+ padding: 10px 0;
+ border-bottom: 1px solid #eee;
+ margin-bottom: 16px;
+}
