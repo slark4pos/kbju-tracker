@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { products } from './data/products'
+import { calculateNorm } from './utils/calories'
 
 const kbju = [
   { id: 'kcal', name: 'Калории', value: 0 },
@@ -10,13 +11,26 @@ const kbju = [
 ]
 
 function App() {
+
   const [weight, setWeight] = useState('')
   const [height, setHeight] = useState('')
   const [age, setAge] = useState('')
   const [gender, setGender] = useState('male')
   const [activity, setActivity] = useState('1.2')
 
+  const isFilled = weight !== '' && height !== '' && age !== ''
+
+  const norm = isFilled ? calculateNorm({
+    weight: Number(weight),
+    height: Number(height),
+    age: Number(age),
+    gender: gender,
+    activity: Number(activity)
+  }) : null
+
+  console.log('norm:', norm)
   return (
+
     <div className="app">
       <header className="header">
         <h1>КБЖУ-трекер</h1>
@@ -34,7 +48,7 @@ function App() {
 
       <main className='meals'>
         <section className='calc'>
-          <h2>Моя норма</h2>
+          <h2>Мои данные</h2>
           <div className='field'>
             <label htmlFor='weight'>Вес, кг</label>
             <input
@@ -56,7 +70,7 @@ function App() {
           </div>
 
           <div className='field'>
-            <label htmlFor='age'>Возрат</label>
+            <label htmlFor='age'>Возраст</label>
             <input
               id='age'
               type='number'
@@ -91,6 +105,11 @@ function App() {
               <option value='1.9'>Очень высокая</option>
             </select>
           </div>
+
+          {isFilled
+            ? <p>Ваша норма: {norm} ккал</p>
+            : <p className='hint'>Заполните вес, рост и возраст</p>}
+
 
         </section>
         <h2>Приёмы пищи</h2>
