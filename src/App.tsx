@@ -115,7 +115,7 @@ function App() {
             : <p className='hint'>Заполните вес, рост и возраст</p>}
 
         </section>
-        <h2>Приёмы пищи</h2>
+        <h2>Продукты</h2>
         <div className='field'>
           <label htmlFor='search'>Поиск</label>
           <input
@@ -133,7 +133,7 @@ function App() {
             </li>
           ))}
         </ul>
-
+       {foundProducts.length === 0 && <p className='empty'>Ничего не найдено</p>}
       </main>
 
       <footer>
