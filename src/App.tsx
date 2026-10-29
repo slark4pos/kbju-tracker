@@ -17,6 +17,7 @@ function App() {
   const [age, setAge] = useState('')
   const [gender, setGender] = useState('male')
   const [activity, setActivity] = useState('1.2')
+  const [query, setQuery] = useState('')
 
   const isFilled = weight !== '' && height !== '' && age !== ''
 
@@ -28,7 +29,10 @@ function App() {
     activity: Number(activity)
   }) : null
 
-  console.log('norm:', norm)
+  const foundProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase())
+  )
+
   return (
 
     <div className="app">
@@ -110,17 +114,26 @@ function App() {
             ? <p>Ваша норма: {norm} ккал</p>
             : <p className='hint'>Заполните вес, рост и возраст</p>}
 
-
         </section>
         <h2>Приёмы пищи</h2>
+        <div className='field'>
+          <label htmlFor='search'>Поиск</label>
+          <input
+            id='search'
+            type='search'
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
         <ul className='products' role="list">
-          {products.map((product) => (
+          {foundProducts.map((product) => (
             <li className='product' role="listitem" key={product.id}>
               <span>{product.name}</span>
               <span>{product.kcal} ккал</span>
             </li>
           ))}
         </ul>
+
       </main>
 
       <footer>
