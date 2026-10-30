@@ -7,3 +7,9 @@ export type Product = {
     fat: number
     carbs: number
 }
+
+export type DiaryEntry = {
+  id: string
+  product: Product
+  grams: number
+}

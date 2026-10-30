@@ -2,13 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import { products } from './data/products'
 import { calculateNorm } from './utils/calories'
+import type { DiaryEntry, Product } from './types'
 
-const kbju = [
-  { id: 'kcal', name: 'Калории', value: 0 },
-  { id: 'protein', name: 'Белок', value: 0 },
-  { id: 'fat', name: 'Жиры', value: 0 },
-  { id: 'carbs', name: 'Углеводы', value: 0 }
-]
 
 function App() {
 
@@ -18,6 +13,16 @@ function App() {
   const [gender, setGender] = useState('male')
   const [activity, setActivity] = useState('1.2')
   const [query, setQuery] = useState('')
+  const [diary, setDiary] = useState<DiaryEntry[]>([])
+
+  function addProduct(product: Product) {
+    const entry: DiaryEntry = {
+      id: crypto.randomUUID(),
+      product: product,
+      grams: 100
+    }
+    setDiary([...diary, entry])
+  }
 
   const isFilled = weight !== '' && height !== '' && age !== ''
 
@@ -32,6 +37,18 @@ function App() {
   const foundProducts = products.filter((product) =>
     product.name.toLowerCase().includes(query.toLowerCase())
   )
+
+  const totalKcal = diary.reduce((sum, entry) => sum + entry.product.kcal * entry.grams / 100, 0)
+  const totalProtein = diary.reduce((sum, entry) => sum + entry.product.protein * entry.grams / 100, 0)
+  const totalFat = diary.reduce((sum, entry) => sum + entry.product.fat * entry.grams / 100, 0)
+  const totalCarbs = diary.reduce((sum, entry) => sum + entry.product.carbs * entry.grams / 100, 0)
+
+  const kbju = [
+  { id: 'kcal', name: 'Калории', value: Math.round(totalKcal) },
+  { id: 'protein', name: 'Белок', value: Math.round(totalProtein) },
+  { id: 'fat', name: 'Жиры', value: Math.round(totalFat) },
+  { id: 'carbs', name: 'Углеводы', value: Math.round(totalCarbs) }
+]
 
   return (
 
@@ -115,6 +132,19 @@ function App() {
             : <p className='hint'>Заполните вес, рост и возраст</p>}
 
         </section>
+        <h2>Приёмы пищи</h2>
+        <ul className='field' role='list'>
+          {diary.map((entry) => (
+            <li className='product' key={entry.id}>
+              <span>{entry.product.name}</span>
+              <span>{entry.grams}</span>
+              <span>{Math.round(entry.product.kcal * entry.grams / 100)}</span>
+            </li>
+          ))}
+        </ul>
+        
+        {diary.length === 0 && <p className='empty'>Пока ничего не добавлено</p>}
+
         <h2>Продукты</h2>
         <div className='field'>
           <label htmlFor='search'>Поиск</label>
@@ -125,15 +155,19 @@ function App() {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
+
         <ul className='products' role="list">
           {foundProducts.map((product) => (
             <li className='product' role="listitem" key={product.id}>
+              <button onClick={() => addProduct(product)}>+ 100 г</button>
               <span>{product.name}</span>
               <span>{product.kcal} ккал</span>
             </li>
           ))}
         </ul>
-       {foundProducts.length === 0 && <p className='empty'>Ничего не найдено</p>}
+
+        {foundProducts.length === 0 && <p className='empty'>Ничего не найдено</p>}
+
       </main>
 
       <footer>
