@@ -3,6 +3,7 @@ import './App.css'
 import { products } from './data/products'
 import { calculateNorm } from './utils/calories'
 import type { DiaryEntry, Product } from './types'
+import { ProductRow } from './components/ProductRow'
 
 
 function App() {
@@ -15,11 +16,11 @@ function App() {
   const [query, setQuery] = useState('')
   const [diary, setDiary] = useState<DiaryEntry[]>([])
 
-  function addProduct(product: Product) {
+  function addProduct(product: Product, grams: number) {
     const entry: DiaryEntry = {
       id: crypto.randomUUID(),
-      product: product,
-      grams: 100
+      product,
+      grams
     }
     setDiary([...diary, entry])
   }
@@ -44,18 +45,18 @@ function App() {
   const totalCarbs = diary.reduce((sum, entry) => sum + entry.product.carbs * entry.grams / 100, 0)
 
   const kbju = [
-  { id: 'kcal', name: 'Калории', value: Math.round(totalKcal) },
-  { id: 'protein', name: 'Белок', value: Math.round(totalProtein) },
-  { id: 'fat', name: 'Жиры', value: Math.round(totalFat) },
-  { id: 'carbs', name: 'Углеводы', value: Math.round(totalCarbs) }
-]
+    { id: 'kcal', name: 'Калории', value: Math.round(totalKcal) },
+    { id: 'protein', name: 'Белок', value: Math.round(totalProtein) },
+    { id: 'fat', name: 'Жиры', value: Math.round(totalFat) },
+    { id: 'carbs', name: 'Углеводы', value: Math.round(totalCarbs) }
+  ]
 
   return (
 
     <div className="app">
       <header className="header">
         <h1>КБЖУ-трекер</h1>
-        <p className='date'>18 октября</p>
+        <p className='date'>8 ноября</p>
       </header>
 
       <section className='totals'>
@@ -137,12 +138,12 @@ function App() {
           {diary.map((entry) => (
             <li className='product' key={entry.id}>
               <span>{entry.product.name}</span>
-              <span>{entry.grams}</span>
-              <span>{Math.round(entry.product.kcal * entry.grams / 100)}</span>
+              <span>{entry.grams} гр</span>
+              <span>{Math.round(entry.product.kcal * entry.grams / 100)} кл</span>
             </li>
           ))}
         </ul>
-        
+
         {diary.length === 0 && <p className='empty'>Пока ничего не добавлено</p>}
 
         <h2>Продукты</h2>
@@ -158,11 +159,7 @@ function App() {
 
         <ul className='products' role="list">
           {foundProducts.map((product) => (
-            <li className='product' role="listitem" key={product.id}>
-              <button onClick={() => addProduct(product)}>+ 100 г</button>
-              <span>{product.name}</span>
-              <span>{product.kcal} ккал</span>
-            </li>
+            <ProductRow key={product.id} product={product} onAdd={addProduct} />
           ))}
         </ul>
 
